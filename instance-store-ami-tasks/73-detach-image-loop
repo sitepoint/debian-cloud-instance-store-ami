@@ -1,4 +1,0 @@
-#!/bin/bash
-# Detach instance image loop device
-log "Detaching image loop device."
-losetup -d $device_path
