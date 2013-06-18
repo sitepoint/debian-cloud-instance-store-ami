@@ -1,1 +1,2 @@
 host_packages+=('dctrl-tools')
+host_packages+=('pv')
