@@ -2,38 +2,37 @@
 # Register the uploaded bundle as a new AMI
 
 # Figure out which pvGrub kernel ID we need
-# See https://wiki.debian.org/Cloud/AmazonEC2Image/Wheezy
 case $region in
         us-east-1)
-                [ $arch = 'amd64' ] && aki="aki-655a600c"
+                [ $arch = 'amd64' ] && aki="aki-88aa75e1"
                 [ $arch = 'i386' ] && aki="aki-b6aa75df"
         ;;
         us-west-1)
-                [ $arch = 'amd64' ] && aki="aki-46c7fa03"
+                [ $arch = 'amd64' ] && aki="aki-f77e26b2"
                 [ $arch = 'i386' ] && aki="aki-f57e26b0"
         ;;
         us-west-2)
-                [ $arch = 'amd64' ] && aki="aki-68026058"
+                [ $arch = 'amd64' ] && aki="aki-fc37bacc"
                 [ $arch = 'i386' ] && aki="aki-fa37baca"
         ;;
         eu-west-1)
-                [ $arch = 'amd64' ] && aki="aki-80d322f7"
+                [ $arch = 'amd64' ] && aki="aki-71665e05"
                 [ $arch = 'i386' ] && aki="aki-75665e01"
         ;;
         ap-southeast-1)
-                [ $arch = 'amd64' ] && aki="aki-34aafc66"
+                [ $arch = 'amd64' ] && aki="aki-fe1354ac"
                 [ $arch = 'i386' ] && aki="aki-f81354aa"
         ;;
         ap-southeast-2)
-                [ $arch = 'amd64' ] && aki="aki-3d3aa407"
+                [ $arch = 'amd64' ] && aki="aki-31990e0b"
                 [ $arch = 'i386' ] && aki="aki-33990e09"
         ;;
         ap-northeast-1)
-                [ $arch = 'amd64' ] && aki="aki-f780eaf6"
+                [ $arch = 'amd64' ] && aki="aki-44992845"
                 [ $arch = 'i386' ] && aki="aki-42992843"
         ;;
         sa-east-1)
-                [ $arch = 'amd64' ] && aki="aki-771bbb6a"
+                [ $arch = 'amd64' ] && aki="aki-c48f51d9"
                 [ $arch = 'i386' ] && aki="aki-ca8f51d7"
         ;;
         us-gov-west-1)
