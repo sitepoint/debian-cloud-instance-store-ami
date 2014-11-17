@@ -2,8 +2,6 @@
 
 # Dependency setup
 insert_task_after "01-packages" "$plugindir/instance-store-ami-tasks/01-host_dependencies"
-insert_task_after "05-install-euca2ools" "$plugindir/instance-store-ami-tasks/05-install-euca2ools"
-remove_task "05-install-euca2ools"
 
 # Apparently this isn't required if using this plugin?
 remove_task "06-patch-boto"
