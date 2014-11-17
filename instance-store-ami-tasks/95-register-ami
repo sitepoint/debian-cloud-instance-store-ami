@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 # Register the uploaded bundle as a new AMI
 
 # Figure out which pvGrub kernel ID we need.
@@ -11,39 +12,39 @@
 # Where you need to take the latest pv-grub-hd0_1.xx image.
 
 case $region in
-        us-east-1)
-                [ $arch = 'amd64' ] && aki="aki-919dcaf8"
-                [ $arch = 'i386' ] && aki="aki-8f9dcae6"
+    us-east-1)
+        [ $arch = 'amd64' ] && aki="aki-919dcaf8"
+        [ $arch = 'i386' ] && aki="aki-8f9dcae6"
         ;;
-        us-west-1)
-                [ $arch = 'amd64' ] && aki="aki-880531cd"
-                [ $arch = 'i386' ] && aki="aki-8e0531cb"
+    us-west-1)
+        [ $arch = 'amd64' ] && aki="aki-880531cd"
+        [ $arch = 'i386' ] && aki="aki-8e0531cb"
         ;;
-        us-west-2)
-                [ $arch = 'amd64' ] && aki="aki-fc8f11cc"
-                [ $arch = 'i386' ] && aki="aki-f08f11c0"
+    us-west-2)
+        [ $arch = 'amd64' ] && aki="aki-fc8f11cc"
+        [ $arch = 'i386' ] && aki="aki-f08f11c0"
         ;;
-        eu-west-1)
-                [ $arch = 'amd64' ] && aki="aki-52a34525"
-                [ $arch = 'i386' ] && aki="aki-68a3451f"
+    eu-west-1)
+        [ $arch = 'amd64' ] && aki="aki-52a34525"
+        [ $arch = 'i386' ] && aki="aki-68a3451f"
         ;;
-        ap-southeast-1)
-                [ $arch = 'amd64' ] && aki="aki-503e7402"
-                [ $arch = 'i386' ] && aki="aki-ae3973fc"
+    ap-southeast-1)
+        [ $arch = 'amd64' ] && aki="aki-503e7402"
+        [ $arch = 'i386' ] && aki="aki-ae3973fc"
         ;;
-        ap-southeast-2)
-                [ $arch = 'amd64' ] && aki="aki-c362fff9"
-                [ $arch = 'i386' ] && aki="aki-cd62fff7"
+    ap-southeast-2)
+        [ $arch = 'amd64' ] && aki="aki-c362fff9"
+        [ $arch = 'i386' ] && aki="aki-cd62fff7"
         ;;
-        ap-northeast-1)
-                [ $arch = 'amd64' ] && aki="aki-176bf516"
-                [ $arch = 'i386' ] && aki="aki-136bf512"
+    ap-northeast-1)
+        [ $arch = 'amd64' ] && aki="aki-176bf516"
+        [ $arch = 'i386' ] && aki="aki-136bf512"
         ;;
-        sa-east-1)
-                [ $arch = 'amd64' ] && aki="aki-5553f448"
-                [ $arch = 'i386' ] && aki="aki-5b53f446"
+    sa-east-1)
+        [ $arch = 'amd64' ] && aki="aki-5553f448"
+        [ $arch = 'i386' ] && aki="aki-5b53f446"
         ;;
-        *) die "Unrecognized region:" "$region"
+    *) die "Unrecognized region:" "$region"
 esac
 
 
@@ -51,22 +52,26 @@ esac
 [ $arch = 'amd64' ] && ami_arch='x86_64'
 
 log "Registering an AMI"
-ami_id=`euca-register \
-        "${S3_BUCKET}/${ami_name}.manifest.xml" \
-        --name "$ami_name" --description "$description" \
-        --architecture "$ami_arch" --kernel "$aki" \
-        | awk '{print $2}'`
+
+ami_id=$(euca-register \
+    --name "${ami_name}" --description "${description}" \
+    --architecture "${ami_arch}" --kernel "${aki}" \
+    --virtualization-type "${virt}" \
+    "${S3_BUCKET}/${ami_name}.manifest.xml"
+    | awk '{print ${2}}')
 
 # If the user has already created an unnamed AMI today,
 # this will fail, so give the AMI registration command to the user
 if [[ ! "$ami_id" =~ ^ami-[0-9a-z]{8}$ ]]; then
-        die \
-                "Unable to register an AMI." \
-                "You can do it manually with:" \
-                "`which euca-register` \\\\" \
-                "'${S3_BUCKET}/${ami_name}.manifest.xml' \\\\" \
-                "--name '$ami_name' --description '$description' \\\\" \
-                "--architecture '$ami_arch' --kernel '$aki'"
+    die \
+        "Unable to register an AMI." \
+        "You can do it manually with:" \
+        "$(which euca-register) \\\\" \
+        "--name '${ami_name}' --description '${description}' \\\\" \
+        "--architecture '${ami_arch}' --kernel '${aki}' \\\\" \
+        "--virtualization-type '${virt}' \\\\" \
+        "'${S3_BUCKET}/${ami_name}.manifest.xml'"
 fi
-log "Your AMI has been created with the ID '$ami_id'"
+
+log "Your AMI has been created with the ID '${ami_id}'"
 
