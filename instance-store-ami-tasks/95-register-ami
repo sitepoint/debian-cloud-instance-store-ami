@@ -57,7 +57,7 @@ ami_id=$(euca-register \
     --name "${ami_name}" --description "${description}" \
     --architecture "${ami_arch}" --kernel "${aki}" \
     --virtualization-type "${virt}" \
-    "${S3_BUCKET}/${ami_name}.manifest.xml"
+    "${S3_BUCKET}/${ami_name}.manifest.xml" \
     | awk '{print ${2}}')
 
 # If the user has already created an unnamed AMI today,
@@ -74,4 +74,3 @@ if [[ ! "$ami_id" =~ ^ami-[0-9a-z]{8}$ ]]; then
 fi
 
 log "Your AMI has been created with the ID '${ami_id}'"
-
