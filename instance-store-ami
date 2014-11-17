@@ -3,9 +3,6 @@
 # Dependency setup
 insert_task_after "01-packages" "$plugindir/instance-store-ami-tasks/01-host_dependencies"
 
-# Apparently this isn't required if using this plugin?
-remove_task "06-patch-boto"
-
 # Additional vars for euca tools that manage bundles
 insert_task_after "07-host-information" "$plugindir/instance-store-ami-tasks/08-more-host-info"
 
