@@ -20,6 +20,9 @@ insert_task_after "72c-upload-bundle" \
 insert_task_after "72d-delete-bundle-files" \
     "$plugindir/instance-store-ami-tasks/72e-delete_sparse_file"
 
+# We don't need to create a volume snapshot for instace-backed AMIs.
+remove_task "80-ebs-snapshot"
+
 # Replace ${TASK_CREATE_AMI} as instance-store AMIs are registered
 # differently
 insert_task_after "${TASK_CREATE_AMI}" \
