@@ -2,14 +2,15 @@
 #
 # Register the uploaded bundle as a new AMI
 
-# Figure out which pvGrub kernel ID we need.
-# This list can be updated using something like:
+# Figure out which pvGrub kernel ID we need.  This list can be updated
+# using something like:
 #
-# euca-describe-images --region=us-east-1 --filter \
-#     owner-id=137112412989 --filter image-type=kernel \
-#     --filter architecture=x86_64 | grep pv-grub-hd0_
+# euca-describe-images --owner 137112412989 --region=us-east-1 \
+#     --filter image-type=kernel --filter architecture=x86_64 \
+#     | grep pv-grub-hd0_
 #
-# Where you need to take the latest pv-grub-hd0_1.xx image.
+# Where 137112412989 is Amazon's current EC2 user ID. You need to take
+# the latest pv-grub-hd0_1.xx image (if there's more than one).
 
 case $region in
     us-east-1)
