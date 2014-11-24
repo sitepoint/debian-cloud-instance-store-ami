@@ -2,6 +2,8 @@
 #
 # Register the uploaded bundle as a new AMI
 
+declare kernel=""
+
 # Figure out which pvGrub kernel ID we need.  This list can be updated
 # using something like:
 #
@@ -54,9 +56,14 @@ esac
 
 log "Registering an AMI"
 
+if [ "${virt}" = 'paravirtual' ]
+then
+    kernel="--kernel ${aki}"
+fi
+
 ami_id=$(euca-register \
     --name "${ami_name}" --description "${description}" \
-    --architecture "${ami_arch}" --kernel "${aki}" \
+    --architecture "${ami_arch}" ${kernel} \
     --virtualization-type "${virt}" \
     "${S3_BUCKET}/${ami_name}.manifest.xml" \
     | awk '{print $2}')
