@@ -65,6 +65,7 @@ ami_id=$(euca-register \
     --name "${ami_name}" --description "${description}" \
     --architecture "${ami_arch}" ${kernel} \
     --virtualization-type "${virt}" \
+    --root-device-name /dev/xvda \
     "${S3_BUCKET}/${ami_name}.manifest.xml" \
     | awk '{print $2}')
 
@@ -78,6 +79,7 @@ if [[ ! "$ami_id" =~ ^ami-[0-9a-z]{8}$ ]]; then
         "--name '${ami_name}' --description '${description}' \\\\" \
         "--architecture '${ami_arch}' --kernel '${aki}' \\\\" \
         "--virtualization-type '${virt}' \\\\" \
+        "--root-device-name /dev/xvda \\\\" \
         "'${S3_BUCKET}/${ami_name}.manifest.xml'"
 fi
 
