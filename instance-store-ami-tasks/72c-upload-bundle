@@ -1,7 +1,9 @@
 #!/bin/bash
+#
 # Upload instance image bundle to S3
 
 euca-upload-bundle -b "${S3_BUCKET}" -m "${bundledir}/${ami_name}.manifest.xml"
-if [ $? -ne 0 ]; then
-  die "Unable to upload image bundle to S3."
+if [ $? -ne 0 ]
+then
+    die "Unable to upload image bundle to S3."
 fi

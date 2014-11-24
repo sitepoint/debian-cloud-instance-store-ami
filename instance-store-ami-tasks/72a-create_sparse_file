@@ -8,7 +8,7 @@ cat "${device_path}" | pv | cp --sparse=always /dev/stdin "${image_file}"
 
 if [ ${?} -ne 0 ]
 then
-  die "Unable to create image file '${image_file}'."
+    die "Unable to create image file '${image_file}'."
 fi
 
 log "Successfully created image file."

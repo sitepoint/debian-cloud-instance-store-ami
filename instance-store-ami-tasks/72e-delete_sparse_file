@@ -2,7 +2,7 @@
 
 if [ -n "${image_file}" ]
 then
-	rm -f "${image_file}"
+    rm -f "${image_file}"
 else
-	die "'${image_file}' not found - could not delete."
+    die "'${image_file}' not found - could not delete."
 fi

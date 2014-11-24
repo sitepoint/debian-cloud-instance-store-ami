@@ -1,3 +1,5 @@
 #!/bin/bash
+#
 # Delete instance bundled files
-rm -fr $bundledir
+
+rm -rf "${bundledir}"
