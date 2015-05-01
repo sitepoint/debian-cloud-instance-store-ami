@@ -2,7 +2,7 @@
 #
 # Upload instance image bundle to S3
 
-euca-upload-bundle -b "${S3_BUCKET}" -m "${bundledir}/${ami_name}.manifest.xml"
+euca-upload-bundle -b "${S3_BUCKET}" -m "${bundledir}/${ami_name}.manifest.xml" --location "${region}"
 if [ $? -ne 0 ]
 then
     die "Unable to upload image bundle to S3."
